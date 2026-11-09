@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hortifruti</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #f4f4f9;
+            margin: 0;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 20px;
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .painel-esquerdo select {
+            width: 140px;
+            height: 180px;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .painel-meio button {
+            padding: 12px 20px;
+            font-size: 16px;
+            font-weight: bold;
+            color: #fff;
+            background-color: #007bff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .painel-meio button:hover {
+            background-color: #0056b3;
+        }
+
+        .painel-direito {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            width: 250px;
+        }
+
+        .card-info {
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 10px;
+            background-color: #fafafa;
+        }
+
+        .card-info strong {
+            display: block;
+            color: #555;
+            font-size: 12px;
+            text-transform: uppercase;
+            margin-bottom: 5px;
+        }
+
+        .card-info div {
+            font-size: 15px;
+            color: #333;
+        }
+
+        .emoji {
+            font-size: 48px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="painel-esquerdo">
+            <select id="selectProdutos" size="4"></select>
+        </div>
+
+        <div class="painel-meio">
+            <button id="btnDetalhes">Detalhes</button>
+        </div>
+
+        <div class="painel-direito">
+            <div class="card-info">
+                <strong>Categoria</strong>
+                <div id="divCategoria">-</div>
+            </div>
+            <div class="card-info">
+                <strong>Preço</strong>
+                <div id="divPreco">-</div>
+            </div>
+            <div class="card-info">
+                <strong>Estoque</strong>
+                <div id="divEstoque">-</div>
+            </div>
+            <div class="card-info">
+                <strong>Imagem</strong>
+                <div id="divImagem">-</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const produtos = [
+            { nome: "Alface", categoria: "Verdura", preco: "R$ 3,50 a unidade", estoque: "40 unidades", imagem: "🥬" },
+            { nome: "Banana", categoria: "Fruta", preco: "R$ 7,90 o kg", estoque: "85 kg", imagem: "🍌" },
+            { nome: "Cenoura", categoria: "Legume", preco: "R$ 5,99 o kg", estoque: "60 kg", imagem: "🥕" },
+            { nome: "Tomate", categoria: "Legume", preco: "R$ 8,49 o kg", estoque: "52 kg", imagem: "🍅" }
+        ];
+
+        const selectProdutos = document.getElementById("selectProdutos");
+        const btnDetalhes = document.getElementById("btnDetalhes");
+        const divCategoria = document.getElementById("divCategoria");
+        const divPreco = document.getElementById("divPreco");
+        const divEstoque = document.getElementById("divEstoque");
+        const divImagem = document.getElementById("divImagem");
+
+        for (let i = 0; i < produtos.length; i++) {
+            const opcao = document.createElement("option");
+            opcao.value = i;
+            opcao.textContent = produtos[i].nome;
+            selectProdutos.appendChild(opcao);
+        }
+        selectProdutos.selectedIndex = 0;
+
+        btnDetalhes.addEventListener("click", function () {
+            const index = selectProdutos.value;
+
+            if (index !== "") {
+                const produto = produtos[index];
+                divCategoria.textContent = produto.categoria;
+                divPreco.textContent = produto.preco;
+                divEstoque.textContent = produto.estoque;
+                divImagem.innerHTML = '<span class="emoji" title="' + produto.nome + '">' + produto.imagem + '</span>';
+            }
+        });
+    </script>
+</body>
+</html>
